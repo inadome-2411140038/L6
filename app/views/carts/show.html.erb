@@ -1,0 +1,29 @@
+<h1>ショッピングカート</h1>
+
+<% total = 0 %>
+
+<% @cart.cart_items.each do |item| %>
+  <% subtotal = item.product.price * item.qty %>
+  <% total += subtotal %>
+
+  <p>
+    商品名：<%= item.product.name %>
+    価格：<%= item.product.price %>円
+    数量：<%= item.qty %>
+    小計：<%= subtotal %>円
+
+    <%= link_to "カートから削除",
+        cartitem_path(item),
+        data: { turbo_method: :delete } %>
+  </p>
+<% end %>
+
+<hr>
+
+<p>
+  合計金額：<%= total %>円
+</p>
+
+<p>
+  <%= link_to "商品一覧へ戻る", products_path %>
+</p>
